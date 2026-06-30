@@ -1,0 +1,479 @@
+/* ========== БАЗОВЫЕ НАСТРОЙКИ ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-dark: #06060c;
+    --glass-bg: rgba(15, 15, 25, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --accent: #d4a5ff;
+    --accent-soft: #ffb3d9;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --shadow-glow: 0 0 30px rgba(180, 140, 255, 0.3);
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Живой фон */
+#background-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Лепестки */
+#petals-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.petal {
+    position: absolute;
+    top: -10%;
+    font-size: 18px;
+    animation: petalFall linear forwards;
+    opacity: 0.8;
+    will-change: transform;
+}
+
+@keyframes petalFall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg) scale(0.5);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* ========== ЭКРАНЫ ========== */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: opacity 0.6s ease, visibility 0.6s ease, filter 0.8s ease;
+}
+
+.screen--hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    filter: blur(10px);
+}
+
+/* ========== СТЕКЛЯННАЯ КАРТОЧКА ВХОДА ========== */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid var(--glass-border);
+    border-radius: 36px;
+    padding: 48px 28px 36px;
+    width: 88%;
+    max-width: 380px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), var(--shadow-glow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+    animation: cardAppear 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Приветственный блок */
+.greeting-block {
+    text-align: center;
+    margin-bottom: 40px;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.greeting {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+    min-height: 28px;
+}
+
+.user-name {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #e2b0ff, #ffb3d9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    min-height: 50px;
+    margin-top: 4px;
+}
+
+.cursor {
+    color: var(--accent);
+    font-size: 24px;
+    animation: blink 1s infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Поле ввода */
+.input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.password-field {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 16px 20px;
+    font-size: 16px;
+    color: #fff;
+    outline: none;
+    letter-spacing: 3px;
+    font-weight: 300;
+    transition: all 0.5s ease;
+}
+
+.password-field:focus {
+    border-color: rgba(212, 165, 255, 0.7);
+    box-shadow: 0 0 30px rgba(180, 130, 255, 0.3);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.password-field::placeholder {
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.submit-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+    padding: 16px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.submit-btn:active {
+    background: rgba(212, 165, 255, 0.2);
+    border-color: rgba(212, 165, 255, 0.6);
+    transform: scale(0.97);
+}
+
+.btn-icon {
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:active .btn-icon {
+    transform: translateX(4px);
+}
+
+/* Ошибка */
+.error-text {
+    color: #ff8a8a;
+    font-size: 13px;
+    margin-top: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.error-text.visible {
+    opacity: 1;
+}
+
+/* Тряска */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.6s ease;
+}
+
+/* ========== РОМАНТИЧЕСКИЙ ЭКРАН ========== */
+#romantic-screen {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    align-items: flex-start;
+    background: transparent;
+}
+
+.romantic-container {
+    width: 100%;
+    max-width: 520px;
+    padding: 60px 24px 120px;
+    margin: 0 auto;
+}
+
+.romantic-title {
+    font-family: var(--font-display);
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: 500;
+    background: linear-gradient(to bottom, #fff, rgba(255,255,255,0.7));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeSlideUp 1s ease forwards;
+}
+
+/* Карточки с фото */
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 50px;
+}
+
+.card-image-wrapper {
+    width: 100%;
+    aspect-ratio: 3/4;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 40px 60px rgba(0,0,0,0.5), 0 0 30px rgba(180,140,255,0.1);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+}
+
+/* Кинематографичная рамка */
+.cinematic-frame {
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.cinematic-frame::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.card-image-wrapper:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 50px 80px rgba(0,0,0,0.6), 0 0 50px rgba(212,165,255,0.25);
+}
+
+.card-image-wrapper:hover::after {
+    opacity: 1;
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s ease, filter 0.8s ease;
+    filter: brightness(0.9);
+}
+
+.card-image-wrapper:hover .card-img {
+    transform: scale(1.08);
+    filter: brightness(1.05);
+}
+
+.card-text {
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 300;
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 0 8px;
+}
+
+.text-block {
+    margin: 45px 0;
+    text-align: center;
+    font-size: 19px;
+    line-height: 1.8;
+    font-family: var(--font-display);
+    font-style: italic;
+    color: rgba(255,255,255,0.65);
+}
+
+/* Письмо */
+.love-letter {
+    margin-top: 60px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 28px;
+    padding: 36px 26px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.love-letter h2 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    margin-bottom: 22px;
+    font-weight: 500;
+}
+
+.love-letter p {
+    font-weight: 300;
+    line-height: 1.9;
+    margin-bottom: 18px;
+    color: rgba(255,255,255,0.7);
+}
+
+.signature {
+    margin-top: 32px;
+    text-align: right;
+    font-style: italic;
+    font-family: var(--font-display);
+    font-size: 18px;
+}
+
+/* Кнопка музыки */
+.music-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transition: all 0.4s ease;
+}
+
+.music-btn:active {
+    transform: scale(0.9);
+    background: rgba(212,165,255,0.2);
+}
+
+.music-btn.playing {
+    border-color: rgba(212,165,255,0.5);
+    box-shadow: 0 0 25px rgba(180,140,255,0.4);
+}
+
+/* ========== АНИМАЦИИ СКРОЛЛА ========== */
+.fade-in-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Специальная анимация для карточек */
+.card:nth-child(odd) .card-image-wrapper {
+    transform-origin: center center;
+}
+
+/* Анимация заголовка */
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптив */
+@media (max-width: 380px) {
+    .romantic-title {
+        font-size: 28px;
+    }
+    .glass-card {
+        padding: 36px 20px 28px;
+    }
+    .user-name {
+        font-size: 34px;
+    }
+}

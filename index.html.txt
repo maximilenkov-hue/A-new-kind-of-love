@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>✨ Для тебя</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Живой фон: частицы и сферы (генерируются в JS) -->
+    <canvas id="background-canvas"></canvas>
+    <!-- Контейнер для летающих лепестков/сердечек -->
+    <div id="petals-container"></div>
+
+    <!-- ЭКРАН ВХОДА -->
+    <div id="login-screen" class="screen">
+        <div class="glass-card">
+            <div class="greeting-block">
+                <!-- Текст печатается с эффектом машинки -->
+                <p id="greeting-text" class="greeting"></p>
+                <p id="name-text" class="user-name"></p>
+                <!-- Мигающий курсор -->
+                <span id="cursor" class="cursor">|</span>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password-input" class="password-field" placeholder="Пароль" maxlength="20">
+                <button id="submit-btn" class="submit-btn">
+                    <span class="btn-text">Войти</span>
+                    <span class="btn-icon">→</span>
+                </button>
+            </div>
+
+            <p id="error-message" class="error-text">Неверный пароль</p>
+        </div>
+    </div>
+
+    <!-- ЭКРАН РОМАНТИЧЕСКОГО КОНТЕНТА -->
+    <div id="romantic-screen" class="screen screen--hidden">
+        <!-- Кнопка управления музыкой -->
+        <button id="music-toggle" class="music-btn" aria-label="Включить музыку">
+            <span class="music-icon">🔇</span>
+        </button>
+
+        <div class="romantic-container">
+            <h1 class="romantic-title cinematic-text">Ты — моё вдохновение</h1>
+
+            <!-- Карточка 1 -->
+            <div class="card fade-in-on-scroll">
+                <div class="card-image-wrapper cinematic-frame">
+                    <!-- ***** ЗАМЕНИТЕ ССЫЛКУ НА СВОЮ ФОТОГРАФИЮ ***** -->
+                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&h=800&fit=crop&auto=format" alt="Наш момент" class="card-img" loading="lazy">
+                </div>
+                <p class="card-text">Каждый миг с тобой — драгоценность.</p>
+            </div>
+
+            <div class="text-block fade-in-on-scroll">
+                <p>Ты делаешь мир вокруг теплее и светлее. Твоя улыбка способна развеять любые тучи.</p>
+            </div>
+
+            <!-- Карточка 2 -->
+            <div class="card card--reverse fade-in-on-scroll">
+                <div class="card-image-wrapper cinematic-frame">
+                    <!-- ***** ЗАМЕНИТЕ ССЫЛКУ НА СВОЮ ФОТОГРАФИЮ ***** -->
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&h=800&fit=crop&auto=format" alt="Рядом с тобой" class="card-img" loading="lazy">
+                </div>
+                <p class="card-text">Спасибо тебе за смех, нежность и доброту.</p>
+            </div>
+
+            <div class="text-block fade-in-on-scroll">
+                <p>Даже когда мы не вместе, я чувствую тепло твоей души.</p>
+            </div>
+
+            <!-- Карточка 3 -->
+            <div class="card fade-in-on-scroll">
+                <div class="card-image-wrapper cinematic-frame">
+                    <!-- ***** ЗАМЕНИТЕ ССЫЛКУ НА СВОЮ ФОТОГРАФИЮ ***** -->
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&h=800&fit=crop&auto=format" alt="Любовь" class="card-img" loading="lazy">
+                </div>
+                <p class="card-text">В этом мире есть настоящее волшебство — это ты.</p>
+            </div>
+
+            <div class="love-letter fade-in-on-scroll">
+                <h2>Моей любимой</h2>
+                <!-- ***** ЗАМЕНИТЕ ТЕКСТ НА СВОЙ ***** -->
+                <p>Знаешь, я часто думаю о том, как удивительно пересеклись наши пути. В огромном мире, среди миллиардов людей, я встретил именно тебя. И это лучшее, что случалось в моей жизни.</p>
+                <p>Я обещаю быть рядом, оберегать тебя и делать всё, чтобы твои глаза всегда сияли от счастья.</p>
+                <p class="signature">С бесконечной любовью,<br>твой человек.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрытый аудиоплеер -->
+    <!-- ***** ЗАМЕНИТЕ НА СВОЙ АУДИОФАЙЛ ***** -->
+    <audio id="bg-music" loop preload="auto" src="your-music-file.mp3"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
